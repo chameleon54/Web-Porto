@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp-server"],
+      "env": {
+        "CONTEXT7_DOCS_PATH": "./.ai-docs"
+      }
+    },
+    "serena": {
+      "command": "npx",
+      "args": ["-y", "serena-mcp-server"],
+      "env": {
+        "SERENA_AUTOMATION_LEVEL": "high"
+      }
+    },
+    "graphify": {
+      "command": "npx",
+      "args": ["-y", "graphify-mcp-server"],
+      "env": {
+        "GRAPHIFY_OUTPUT_DIR": "./.graphify"
+      }
+    }
+  }
+}

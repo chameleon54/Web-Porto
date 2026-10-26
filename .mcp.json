@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    },
+    "serena": {
+      "command": "${USERPROFILE}/.local/bin/serena.exe",
+      "args": ["start-mcp-server", "--context", "claude-code", "--project-from-cwd"]
+    },
+    "graphify": {
+      "command": "${APPDATA}/uv/tools/graphifyy/Scripts/python.exe",
+      "args": ["-m", "graphify.serve", "graphify-out/graph.json"]
+    }
+  }
+}
