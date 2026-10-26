@@ -14,7 +14,7 @@ export function Hero() {
   return (
     <SectionShell index={0} label="Introduction">
       {/* isolate keeps the scrim behind the text but above the canvas */}
-      <div className="pointer-events-none relative isolate mx-auto w-full max-w-3xl text-center">
+      <div className="pointer-events-none relative isolate mx-auto w-full max-w-4xl text-center">
         {/* Dark scrim so text stays readable over the bright accretion disk */}
         <div
           aria-hidden="true"
@@ -34,8 +34,8 @@ export function Hero() {
           initial={false}
           animate={{ opacity: introDone ? 1 : 0, y: introDone ? 0 : 12 }}
           transition={{ duration: 0.9, delay: 0.3 }}
-          className={`mt-3 whitespace-nowrap font-display font-extrabold leading-tight text-white ${TEXT_SHADOW}`}
-          style={{ fontSize: "clamp(2rem, 9.5vw, 5.5rem)" }}
+          className={`mt-3 text-balance font-display font-extrabold leading-tight text-white ${TEXT_SHADOW}`}
+          style={{ fontSize: "clamp(1.9rem, 6.5vw, 4.5rem)" }}
         >
           {PROFILE.name}
         </motion.h1>

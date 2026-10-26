@@ -1,9 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Github, Instagram, Linkedin, Mail, MessageCircle } from "lucide-react";
+import {
+  ArrowLeft,
+  ExternalLink,
+  Github,
+  Instagram,
+  Linkedin,
+  Mail,
+  MessageCircle,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { AudioToggle } from "@/components/ui/AudioToggle";
 import { StarBackdrop } from "@/components/ui/StarBackdrop";
+import { CREDITS_DATA } from "@/data/credits";
 import { EXPERIENCE_DATA } from "@/data/experience";
 import { PROFILE } from "@/data/profile";
 import { CONTACT } from "@/lib/contact";
@@ -136,6 +145,63 @@ export default function AboutPage() {
             </li>
           ))}
         </ol>
+
+        <h2 className="mt-10 font-display text-2xl font-bold">Credits</h2>
+        <p className="mt-1 text-sm text-white/65">
+          This site uses third-party work. Thank you to the creators. Tap a title or an author to see the
+          original. If you are a creator and would like a credit changed or something removed, please{" "}
+          <a
+            href={CONTACT.emailHref}
+            className="text-aurora underline underline-offset-4 hover:text-white"
+          >
+            email me
+          </a>
+          .
+        </p>
+        <ul className="mt-3 space-y-3">
+          {CREDITS_DATA.map((credit) => (
+            <li key={credit.id} className="glass rounded-2xl p-4">
+              <span className="rounded-full bg-nebula/30 px-2 py-0.5 text-[11px] font-medium">
+                {credit.type}
+              </span>
+              <a
+                href={credit.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1.5 block break-words font-display text-sm font-semibold leading-snug underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-nebula sm:text-base"
+              >
+                {credit.title}
+              </a>
+              <p className="text-xs text-white/65">
+                by{" "}
+                {credit.authorUrl ? (
+                  <a
+                    href={credit.authorUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white/85 underline underline-offset-4 hover:text-white"
+                  >
+                    {credit.author}
+                  </a>
+                ) : (
+                  credit.author
+                )}
+                {credit.license ? ` · ${credit.license}` : ""}
+              </p>
+              {credit.changes && (
+                <p className="mt-1.5 text-xs leading-relaxed text-white/55">Changes: {credit.changes}</p>
+              )}
+              <a
+                href={credit.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 inline-flex min-h-8 items-center gap-1 text-xs font-medium text-aurora"
+              >
+                View on {credit.source} <ExternalLink size={12} aria-hidden="true" />
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </main>
   );

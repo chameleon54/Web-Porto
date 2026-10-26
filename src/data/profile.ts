@@ -1,6 +1,6 @@
 /** Edit these to personalize the hero and bio. All copy stays in English. */
 export const PROFILE = {
-  name: "Chairul Khuldan",
+  name: "Chairul Khuldan Hermansyah",
   role: "Web Developer & Creative Technologist",
   tagline:
     "I build fast, immersive web experiences, from B2B platforms to interactive 3D worlds.",

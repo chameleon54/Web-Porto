@@ -77,7 +77,9 @@ export const PROJECTS_DATA: Project[] = [
     fullDescription:
       "A self-driven project exploring backend CRUD mechanics without heavy RDBMS overhead. Manages data persistence, dynamic filtering, and structure validation via structured JSON objects in standard PHP.",
     techStack: ["PHP", "JSON", "RESTful Concept", "Backend Dev"],
-    repoUrl: "https://github.com/chameleon54",
+    image: "/images/projects/php_json_1.png",
+    gallery: ["/images/projects/php_json_1.png", "/images/projects/php_json_2.png"],
+    repoUrl: "https://github.com/chameleon54/not-a-database",
     featured: false,
   },
 ];
