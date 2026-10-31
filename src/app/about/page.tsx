@@ -107,7 +107,9 @@ export default function AboutPage() {
           ))}
         </div>
 
-        <h2 className="mt-8 font-display text-2xl font-bold">Get in touch</h2>
+        <h2 id="contact" className="mt-8 scroll-mt-20 font-display text-2xl font-bold">
+          Get in touch
+        </h2>
         <ul className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {contacts.map(({ label, value, href, icon: Icon, external }) => (
             <li key={label}>

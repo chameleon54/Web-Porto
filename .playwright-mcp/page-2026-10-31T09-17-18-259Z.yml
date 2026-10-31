@@ -1,0 +1,57 @@
+- main [ref=f1e2]:
+  - button "Mute ambient audio" [pressed] [ref=f1e3] [cursor=pointer]
+  - generic [ref=f1e8]:
+    - link "Back to the journey" [ref=f1e9] [cursor=pointer]:
+      - /url: /
+    - heading "All Projects" [level=1] [ref=f1e12]
+    - group "Filter projects by category" [ref=f1e13]:
+      - button "All" [pressed] [ref=f1e14] [cursor=pointer]
+      - button "Web Development" [ref=f1e15] [cursor=pointer]
+      - button "Game Development" [ref=f1e16] [cursor=pointer]
+      - button "Mobile / Cross-Platform" [ref=f1e17] [cursor=pointer]
+      - button "Database System" [ref=f1e18] [cursor=pointer]
+    - generic [ref=f1e19]:
+      - button "View details for B2B E-Commerce Platform" [ref=f1e20] [cursor=pointer]:
+        - generic [ref=f1e21]:
+          - img "B2B E-Commerce Platform preview" [ref=f1e22]
+          - generic [ref=f1e23]: Web Development
+        - generic [ref=f1e24]:
+          - heading "B2B E-Commerce Platform" [level=3] [ref=f1e25]
+          - paragraph [ref=f1e26]: Enterprise B2B web application with automated Midtrans payment gateway and RBAC authorization.
+          - list [ref=f1e27]:
+            - listitem [ref=f1e28]: Next.js
+            - listitem [ref=f1e29]: Supabase
+            - listitem [ref=f1e30]: PostgreSQL
+      - button "View details for Interactive Narrative Visual Novel" [ref=f1e31] [cursor=pointer]:
+        - generic [ref=f1e32]:
+          - img "Interactive Narrative Visual Novel preview" [ref=f1e33]
+          - generic [ref=f1e34]: Game Development
+        - generic [ref=f1e35]:
+          - heading "Interactive Narrative Visual Novel" [level=3] [ref=f1e36]
+          - paragraph [ref=f1e37]: Story-driven game featuring branching dialogue systems and dynamic game state management.
+          - list [ref=f1e38]:
+            - listitem [ref=f1e39]: GDevelop
+            - listitem [ref=f1e40]: Game Logic Architecture
+            - listitem [ref=f1e41]: UI/UX Design
+      - button "View details for PBSI South Jakarta Live Score Web App" [ref=f1e42] [cursor=pointer]:
+        - generic [ref=f1e43]:
+          - img "PBSI South Jakarta Live Score Web App preview" [ref=f1e44]
+          - generic [ref=f1e45]: Mobile / Cross-Platform
+        - generic [ref=f1e46]:
+          - heading "PBSI South Jakarta Live Score Web App" [level=3] [ref=f1e47]
+          - paragraph [ref=f1e48]: Cross-platform live scoring interface for official sports tournament management.
+          - list [ref=f1e49]:
+            - listitem [ref=f1e50]: Ionic Framework
+            - listitem [ref=f1e51]: JavaScript
+            - listitem [ref=f1e52]: HTML5/CSS3
+      - button "View details for Lightweight PHP-JSON Database Manager" [ref=f1e53] [cursor=pointer]:
+        - generic [ref=f1e54]:
+          - img "Lightweight PHP-JSON Database Manager preview" [ref=f1e55]
+          - generic [ref=f1e56]: Database System
+        - generic [ref=f1e57]:
+          - heading "Lightweight PHP-JSON Database Manager" [level=3] [ref=f1e58]
+          - paragraph [ref=f1e59]: Self-initiated modular database CRUD application using flat PHP and JSON storage.
+          - list [ref=f1e60]:
+            - listitem [ref=f1e61]: PHP
+            - listitem [ref=f1e62]: JSON
+            - listitem [ref=f1e63]: RESTful Concept

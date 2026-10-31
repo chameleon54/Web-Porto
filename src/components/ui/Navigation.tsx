@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Mail } from "lucide-react";
 import { scrollToSection } from "@/lib/spaceScroll";
 import { useSpaceStore } from "@/store/useSpaceStore";
 import { AudioToggle } from "./AudioToggle";
@@ -36,7 +37,17 @@ export function Navigation() {
         ))}
       </nav>
 
-      <AudioToggle />
+      <div className="pointer-events-auto flex items-center gap-2">
+        <Link
+          href="/about#contact"
+          aria-label="Contact me"
+          className="glass flex h-11 items-center justify-center gap-2 rounded-full px-3 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-nebula sm:px-4"
+        >
+          <Mail size={18} aria-hidden="true" />
+          <span className="hidden sm:inline">Contact</span>
+        </Link>
+        <AudioToggle />
+      </div>
 
       {/* Mobile dot navigation */}
       <nav
