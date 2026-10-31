@@ -47,8 +47,8 @@ export const PROJECTS_DATA: Project[] = [
     fullDescription:
       "Engineered narrative architecture and story-branching logic determining multiple endings (Good/Bad) based on player choices. Implemented interactive dialogue handling and save-state management within a compact two-person development team.",
     techStack: ["GDevelop", "Game Logic Architecture", "UI/UX Design"],
-    image: "/images/projects/visual_novel_1.png",
-    gallery: ["/images/projects/visual_novel_1.png", "/images/projects/visual_novel_2.png"],
+    image: "/images/projects/visual_novel_1.webp",
+    gallery: ["/images/projects/visual_novel_1.webp", "/images/projects/visual_novel_2.webp"],
     featured: true,
   },
   {

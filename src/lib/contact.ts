@@ -1,7 +1,7 @@
 import { PROFILE } from "@/data/profile";
 
 /** Indonesian local numbers (0812...) become international (62812...) for wa.me. */
-function toWhatsAppNumber(raw: string) {
+export function toWhatsAppNumber(raw: string) {
   const digits = raw.replace(/\D/g, "");
   return digits.startsWith("0") ? `62${digits.slice(1)}` : digits;
 }
