@@ -33,7 +33,7 @@ export default function ProjectsPage() {
           className="glass flex h-11 items-center justify-center gap-2 rounded-full px-3 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-nebula sm:px-4"
         >
           <Mail size={18} aria-hidden="true" />
-          <span className="hidden sm:inline">Contact</span>
+          <span>Contact</span>
         </Link>
         <AudioToggle />
       </div>
@@ -63,6 +63,7 @@ export default function ProjectsPage() {
           ))}
         </div>
 
+        <h2 className="sr-only">Projects</h2>
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((project) => (
             <ProjectCard key={project.id} project={project} onOpen={openProject} />

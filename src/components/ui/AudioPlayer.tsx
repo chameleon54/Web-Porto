@@ -5,9 +5,8 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Music2 } from "lucide-react";
 import { BACKGROUND_TRACK } from "@/data/music";
-import { useSpaceStore } from "@/store/useSpaceStore";
+import { useSpaceStore, VOLUME_KEY } from "@/store/useSpaceStore";
 
-const TARGET_VOLUME = 0.35;
 const FADE_MS = 2000;
 const TOAST_MS = 4000;
 
@@ -22,6 +21,7 @@ export function AudioPlayer() {
   // On the home page, wait for the splash; on other routes there is no splash to wait for.
   const mayPlay = introDone || pathname !== "/";
   const audioEnabled = useSpaceStore((s) => s.audioEnabled);
+  const volume = useSpaceStore((s) => s.volume);
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const fadeFrame = useRef<number>(0);
@@ -51,7 +51,7 @@ export function AudioPlayer() {
     } catch {
       return false; // autoplay blocked until a user gesture
     }
-    fadeTo(audio, TARGET_VOLUME);
+    fadeTo(audio, useSpaceStore.getState().volume);
     if (!announced.current) {
       announced.current = true;
       setShowTitle(true);
@@ -90,6 +90,26 @@ export function AudioPlayer() {
     if (!audio || audioEnabled) return;
     fadeTo(audio, 0, () => audio.pause());
   }, [audioEnabled, fadeTo]);
+
+  // Restore the saved level once (in an effect, so server and client first render agree).
+  useEffect(() => {
+    try {
+      const saved = Number(localStorage.getItem(VOLUME_KEY));
+      if (saved > 0 && saved <= 1) useSpaceStore.setState({ volume: saved });
+    } catch {
+      // Storage blocked: keep the default.
+    }
+  }, []);
+
+  // Slider moved: apply it right away, cutting any fade short.
+  useEffect(() => {
+    const audio = audioRef.current;
+    // Read mute state without depending on it, so muting/unmuting keeps its fades.
+    if (audio && useSpaceStore.getState().audioEnabled && !audio.paused) {
+      cancelAnimationFrame(fadeFrame.current);
+      audio.volume = volume;
+    }
+  }, [volume]);
 
   useEffect(() => {
     if (!showTitle) return;

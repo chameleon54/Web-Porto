@@ -39,7 +39,7 @@ export function Achievements() {
                   </div>
                 )}
                 <div className="min-w-0">
-                  <span className="rounded-full bg-nebula/30 px-2 py-0.5 text-[11px] font-medium">
+                  <span className="rounded-full bg-nebula/30 px-2 py-0.5 text-xs font-medium">
                     {item.type}
                   </span>
                   <h3 className="mt-1.5 font-display text-sm font-semibold leading-snug sm:text-base">

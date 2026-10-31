@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ExternalLink, X } from "lucide-react";
 import { PROJECTS_DATA } from "@/data/projects";
@@ -12,15 +12,39 @@ export function ProjectModal() {
   const openProject = useSpaceStore((s) => s.openProject);
   const project = PROJECTS_DATA.find((p) => p.id === activeId);
 
+  const dialogRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (!project) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && openProject(null);
+    const opener = document.activeElement as HTMLElement | null;
+    const focusables = () =>
+      Array.from(
+        dialogRef.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? [],
+      );
+    // The close button is the first focusable; start there so keyboard users land inside the dialog.
+    focusables()[0]?.focus();
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") return openProject(null);
+      if (e.key !== "Tab") return;
+      const items = focusables();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement;
+      // Keep Tab inside the dialog: wrap at the ends and pull stray focus back in.
+      if (!dialogRef.current?.contains(active) || (e.shiftKey ? active === first : active === last)) {
+        e.preventDefault();
+        (e.shiftKey ? last : first).focus();
+      }
+    };
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", onKey);
+      opener?.focus();
     };
   }, [project, openProject]);
 
@@ -35,6 +59,7 @@ export function ProjectModal() {
           onClick={() => openProject(null)}
         >
           <motion.div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-labelledby="project-modal-title"
@@ -49,7 +74,7 @@ export function ProjectModal() {
               type="button"
               onClick={() => openProject(null)}
               aria-label="Close project details"
-              className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full bg-white/10"
+              className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-nebula"
             >
               <X size={18} />
             </button>

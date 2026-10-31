@@ -30,21 +30,6 @@ interface ContactItem {
 /** Items with no configured value (e.g. missing env var) are left out. */
 function buildContactItems(): ContactItem[] {
   const items: (ContactItem | null)[] = [
-    { label: "GitHub", value: "chameleon54", href: PROFILE.github, icon: Github, external: true },
-    {
-      label: "LinkedIn",
-      value: "chairulkhuldan",
-      href: PROFILE.linkedin,
-      icon: Linkedin,
-      external: true,
-    },
-    {
-      label: "Instagram",
-      value: "@chairulkhuldan",
-      href: PROFILE.instagram,
-      icon: Instagram,
-      external: true,
-    },
     CONTACT.email && CONTACT.emailHref
       ? { label: "Email", value: CONTACT.email, href: CONTACT.emailHref, icon: Mail, external: false }
       : null,
@@ -57,6 +42,21 @@ function buildContactItems(): ContactItem[] {
           external: true,
         }
       : null,
+    {
+      label: "LinkedIn",
+      value: "chairulkhuldan",
+      href: PROFILE.linkedin,
+      icon: Linkedin,
+      external: true,
+    },
+    { label: "GitHub", value: "chameleon54", href: PROFILE.github, icon: Github, external: true },
+    {
+      label: "Instagram",
+      value: "@chairulkhuldan",
+      href: PROFILE.instagram,
+      icon: Instagram,
+      external: true,
+    },
   ];
   return items.filter((item): item is ContactItem => item !== null);
 }
@@ -67,6 +67,14 @@ export default function AboutPage() {
   return (
     <main className="space-bg relative isolate min-h-[100svh] px-4 py-6 sm:px-8">
       <StarBackdrop />
+      {/* One slow orbit ring echoes the journey. CSS only (no WebGL) so the page stays light on phones;
+          the global reduced-motion rule in globals.css stops the spin. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed -right-40 top-1/3 -z-10 h-[34rem] w-[34rem] animate-spin rounded-full border border-white/10 [animation-duration:120s]"
+      >
+        <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-aurora" />
+      </div>
       <AudioToggle className="fixed right-4 top-4 z-30 sm:right-8" />
       <div className="mx-auto max-w-3xl">
         <Link
@@ -93,35 +101,48 @@ export default function AboutPage() {
           </div>
         </header>
 
+        {/* Contact comes first: it is the page's job, so it sits in the first screen. */}
+        <h2 id="contact" className="mt-8 scroll-mt-20 font-display text-2xl font-bold">
+          Get in touch
+        </h2>
+        <ul className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {contacts.map(({ label, value, href, icon: Icon, external }) => {
+            // Email is the one primary action: solid white, full width; the rest are glass.
+            const primary = label === "Email";
+            return (
+              <li key={label} className={primary ? "sm:col-span-2" : undefined}>
+                <a
+                  href={href}
+                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  aria-label={`${label}: ${value}`}
+                  className={`flex min-h-14 items-center gap-3 rounded-2xl px-4 py-3 transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-nebula ${
+                    primary ? "bg-white text-black" : "glass"
+                  }`}
+                >
+                  <span
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${
+                      primary ? "bg-black/10" : "bg-white/10 text-aurora"
+                    }`}
+                  >
+                    <Icon size={18} aria-hidden="true" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className={`block text-xs ${primary ? "text-black/60" : "text-white/55"}`}>
+                      {label}
+                    </span>
+                    <span className="block break-all text-sm font-medium">{value}</span>
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+
         <div className="mt-8 space-y-3 text-sm leading-relaxed text-white/80 sm:text-base">
           {PROFILE.bio.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
         </div>
-
-        <h2 id="contact" className="mt-8 scroll-mt-20 font-display text-2xl font-bold">
-          Get in touch
-        </h2>
-        <ul className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {contacts.map(({ label, value, href, icon: Icon, external }) => (
-            <li key={label}>
-              <a
-                href={href}
-                {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                aria-label={`${label}: ${value}`}
-                className="glass flex min-h-14 items-center gap-3 rounded-2xl px-4 py-3 transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-nebula"
-              >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-aurora">
-                  <Icon size={18} aria-hidden="true" />
-                </span>
-                <span className="min-w-0">
-                  <span className="block text-xs text-white/55">{label}</span>
-                  <span className="block break-all text-sm font-medium">{value}</span>
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
 
         <h2 className="mt-10 font-display text-2xl font-bold">Work Experience</h2>
         <ol className="mt-4 space-y-4 border-l border-white/15 pl-5">
@@ -155,14 +176,14 @@ export default function AboutPage() {
         <ul className="mt-3 space-y-3">
           {CREDITS_DATA.map((credit) => (
             <li key={credit.id} className="glass rounded-2xl p-4">
-              <span className="rounded-full bg-nebula/30 px-2 py-0.5 text-[11px] font-medium">
+              <span className="rounded-full bg-nebula/30 px-2 py-0.5 text-xs font-medium">
                 {credit.type}
               </span>
               <a
                 href={credit.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-1.5 block break-words font-display text-sm font-semibold leading-snug underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-nebula sm:text-base"
+                className="mt-1.5 block break-words py-2 font-display text-sm font-semibold leading-snug underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-nebula sm:text-base"
               >
                 {credit.title}
               </a>

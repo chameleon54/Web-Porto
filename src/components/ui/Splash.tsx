@@ -288,7 +288,7 @@ export function Splash() {
           className="absolute inset-x-0 flex flex-col items-center gap-1.5 px-4 text-center"
           style={{ top: "calc(50% + min(23vw, 84px) + 44px)" }}
         >
-          <p className="text-[11px] uppercase tracking-[0.2em] text-white/55 sm:text-xs sm:tracking-[0.28em]">
+          <p className="text-xs uppercase tracking-[0.2em] text-white/55 sm:tracking-[0.28em]">
             Calibrating Cosmic Coordinates...
           </p>
           <motion.span

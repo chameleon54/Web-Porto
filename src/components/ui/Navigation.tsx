@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Mail } from "lucide-react";
+import { PROFILE } from "@/data/profile";
 import { scrollToSection } from "@/lib/spaceScroll";
 import { useSpaceStore } from "@/store/useSpaceStore";
 import { AudioToggle } from "./AudioToggle";
@@ -18,7 +19,7 @@ export function Navigation() {
         className="glass pointer-events-auto rounded-full px-4 py-2 font-display text-sm font-semibold tracking-wide"
         aria-label="Go to home"
       >
-        Portfolio
+        {PROFILE.name.split(" ")[0]}
       </Link>
 
       <nav
@@ -47,7 +48,7 @@ export function Navigation() {
           className="glass flex h-11 items-center justify-center gap-2 rounded-full px-3 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-nebula sm:px-4"
         >
           <Mail size={18} aria-hidden="true" />
-          <span className="hidden sm:inline">Contact</span>
+          <span>Contact</span>
         </Link>
         <AudioToggle />
       </div>

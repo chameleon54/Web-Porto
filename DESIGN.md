@@ -159,6 +159,12 @@ Glass card with a 112-128px header: category gradient behind a top-cropped scree
 ### Section Heading (signature)
 Display-font title with a one-line subtitle, over a left-anchored radial scrim and heavy text-shadow so it reads over bright 3D.
 
+### Volume Slider
+Quiet instrument control under the speaker button. A slim vertical glass pill drops below the button on hover or keyboard focus (desktop) or on tap (touch, where the panel also carries its own mute button). Hairline track (2px, white/15), Aurora Mint fill from the bottom, 12px white dot thumb, violet focus ring. No glow. Dragging to 0 mutes; the volume is remembered across visits.
+
+### Scrollbar
+Transparent track, slim (8px) rounded glass thumb in Glass Border blue-white at 22%, turning Aurora Mint on hover. Firefox gets the thin width and colours only.
+
 ## Do's and Don'ts
 
 ### Do:

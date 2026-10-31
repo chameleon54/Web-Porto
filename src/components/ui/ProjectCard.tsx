@@ -35,7 +35,7 @@ export function ProjectCard({ project, onOpen, className = "" }: ProjectCardProp
             loading="lazy"
           />
         )}
-        <span className="relative rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-medium">
+        <span className="relative rounded-full bg-black/60 px-2.5 py-1 text-xs font-medium">
           {project.category}
         </span>
       </div>
@@ -46,7 +46,7 @@ export function ProjectCard({ project, onOpen, className = "" }: ProjectCardProp
         </p>
         <ul className="mt-auto flex flex-wrap gap-1.5 pt-2">
           {project.techStack.slice(0, 3).map((tech) => (
-            <li key={tech} className="rounded-md bg-white/10 px-2 py-0.5 text-[11px] text-white/80">
+            <li key={tech} className="rounded-md bg-white/10 px-2 py-0.5 text-xs text-white/80">
               {tech}
             </li>
           ))}

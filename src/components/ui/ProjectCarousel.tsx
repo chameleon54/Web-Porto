@@ -17,7 +17,7 @@ export function ProjectCarousel() {
       <div className="pointer-events-auto mx-auto w-full max-w-5xl">
         <SectionHeading
           title="Featured Projects"
-          subtitle="Swipe to explore the work behind the galaxies."
+          subtitle="The work behind the galaxies."
         />
 
         <div
