@@ -94,7 +94,7 @@ export function ProjectGallery({ title, images }: ProjectGalleryProps) {
             >
               <ChevronRight size={22} />
             </button>
-            <span className="absolute bottom-2 right-3 z-10 rounded-full bg-black/60 px-2.5 py-0.5 text-[11px] font-medium text-white/90">
+            <span className="absolute bottom-2 right-3 z-10 rounded-full bg-black/60 px-2.5 py-0.5 text-xs font-medium text-white/90">
               {index + 1} / {count}
             </span>
           </>

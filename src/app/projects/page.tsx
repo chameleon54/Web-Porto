@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Mail } from "lucide-react";
 import { ProjectModal } from "@/components/modals/ProjectModal";
 import { AudioToggle } from "@/components/ui/AudioToggle";
 import { ProjectCard } from "@/components/ui/ProjectCard";
@@ -26,7 +26,17 @@ export default function ProjectsPage() {
   return (
     <main className="space-bg relative isolate min-h-[100svh] px-4 py-6 sm:px-8">
       <StarBackdrop />
-      <AudioToggle className="fixed right-4 top-4 z-30 sm:right-8" />
+      <div className="fixed right-4 top-4 z-30 flex items-center gap-2 sm:right-8">
+        <Link
+          href="/about#contact"
+          aria-label="Contact me"
+          className="glass flex h-11 items-center justify-center gap-2 rounded-full px-3 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-nebula sm:px-4"
+        >
+          <Mail size={18} aria-hidden="true" />
+          <span>Contact</span>
+        </Link>
+        <AudioToggle />
+      </div>
       <div className="mx-auto max-w-5xl">
         <Link
           href="/"
@@ -53,6 +63,7 @@ export default function ProjectsPage() {
           ))}
         </div>
 
+        <h2 className="sr-only">Projects</h2>
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((project) => (
             <ProjectCard key={project.id} project={project} onOpen={openProject} />

@@ -18,6 +18,10 @@ const MAX_LOAD_MS = 9000;
 /** Loading must read "complete" this long before we trust it (assets arrive in waves). */
 const STABLE_MS = 500;
 
+/** The Skip button appears after this delay so the first beat still lands. */
+const SKIP_AFTER_MS = 1000;
+const SEEN_KEY = "intro-seen";
+
 const PULSE_MS = 1800;
 const BLACKOUT_MS = 280;
 const SHOCKWAVE_S = 1.7;
@@ -51,6 +55,10 @@ export function Splash() {
     loadRef.current = loading;
   }, [loading]);
 
+  const [canSkip, setCanSkip] = useState(false);
+  const skipRequested = useRef(false);
+  const skipNow = useRef<() => void>(() => {});
+
   const percent = useMotionValue(0);
   const percentLabel = useTransform(percent, (v) => `${Math.round(v)}%`);
 
@@ -73,7 +81,15 @@ export function Splash() {
 
     let cancelled = false;
     let frame = 0;
+    // Repeat visit in this tab: skip the show, but still wait for the real load.
+    let seenBefore = false;
+    try {
+      seenBefore = sessionStorage.getItem(SEEN_KEY) === "1";
+    } catch {
+      // Storage blocked: behave like a first visit.
+    }
     window.scrollTo(0, 0);
+    const skipTimer = window.setTimeout(() => setCanSkip(true), SKIP_AFTER_MS);
 
     // Lock scrolling until the sequence is completely over. Overflow alone is not
     // enough: globals.css also clips <html>, which makes browsers ignore a
@@ -122,7 +138,10 @@ export function Splash() {
           const loaded =
             (completeSince !== null && now - completeSince >= STABLE_MS) || elapsed >= MAX_LOAD_MS;
 
-          const target = Math.min(loaded ? 100 : Math.min(real, 96), (elapsed / MIN_LOAD_MS) * 100);
+          const target = Math.min(
+            loaded ? 100 : Math.min(real, 96),
+            seenBefore ? 100 : (elapsed / MIN_LOAD_MS) * 100,
+          );
           const dt = Math.min(0.05, (now - last) / 1000);
           last = now;
           shown += (target - shown) * (1 - Math.exp(-6 * dt));
@@ -136,45 +155,67 @@ export function Splash() {
       });
 
     const open = () => {
+      try {
+        sessionStorage.setItem(SEEN_KEY, "1");
+      } catch {
+        // Storage blocked: the intro will replay next load.
+      }
       unlockScroll();
       setFinished(true);
     };
 
+    // Plain fade instead of the full sequence: reduced motion, skip, and repeat visits.
+    const quickOpen = async () => {
+      setIntroPhase("done");
+      await finishedOf(animate('[data-s="cover"]', { opacity: 0 }, { duration: 0.5 }));
+      open();
+    };
+
+    // Resolves when the visitor presses Skip, so any awaited step can be cut short.
+    const skipped = new Promise<void>((resolve) => {
+      skipNow.current = resolve;
+    });
+    const until = (step: Promise<void>) => Promise.race([step, skipped]);
+
     const run = async () => {
       try {
-        await waitForLoad();
+        await until(waitForLoad());
         if (cancelled) return;
 
-        if (reduceMotion) {
-          setIntroPhase("done");
-          await finishedOf(animate('[data-s="cover"]', { opacity: 0 }, { duration: 0.6 }));
-          open();
+        if (reduceMotion || skipRequested.current || seenBefore) {
+          await quickOpen();
           return;
         }
 
         // Loaded: the singularity breathes, and the loading text steps aside.
         void animate('[data-s="label"]', { opacity: 0 }, { duration: 0.5 });
-        await finishedOf(
-          animate(
-            '[data-s="point"]',
-            { scale: [1, 1.7, 1, 1.9, 1] },
-            { duration: PULSE_MS / 1000, ease: "easeInOut" },
+        await until(
+          finishedOf(
+            animate(
+              '[data-s="point"]',
+              { scale: [1, 1.7, 1, 1.9, 1] },
+              { duration: PULSE_MS / 1000, ease: "easeInOut" },
+            ),
           ),
         );
         if (cancelled) return;
+        if (skipRequested.current) return await quickOpen();
 
         // Collapse: it snaps into blackness, taking the ring with it.
         void animate('[data-s="ring"]', { opacity: 0, scale: 0.5 }, { duration: 0.18 });
         await finishedOf(
           animate('[data-s="point"]', { scale: 0, opacity: 0 }, { duration: 0.09, ease: "easeIn" }),
         );
-        await wait(BLACKOUT_MS);
+        await until(wait(BLACKOUT_MS));
         if (cancelled) return;
+        if (skipRequested.current) return await quickOpen();
 
         // Shockwave: a blur ring sweeps outward and the screen opens behind it.
         // The camera push-in, hero text and music all start from this moment.
         setIntroPhase("done");
-        await finishedOf(animate(radius, 124, { duration: SHOCKWAVE_S, ease: [0.22, 1, 0.36, 1] }));
+        await until(
+          finishedOf(animate(radius, 124, { duration: SHOCKWAVE_S, ease: [0.22, 1, 0.36, 1] })),
+        );
         open();
       } catch {
         // Animations are cancelled on unmount; nothing to recover.
@@ -185,6 +226,7 @@ export function Splash() {
 
     return () => {
       cancelled = true;
+      window.clearTimeout(skipTimer);
       cancelAnimationFrame(frame);
       unlockScroll();
     };
@@ -246,7 +288,7 @@ export function Splash() {
           className="absolute inset-x-0 flex flex-col items-center gap-1.5 px-4 text-center"
           style={{ top: "calc(50% + min(23vw, 84px) + 44px)" }}
         >
-          <p className="text-[11px] uppercase tracking-[0.2em] text-white/55 sm:text-xs sm:tracking-[0.28em]">
+          <p className="text-xs uppercase tracking-[0.2em] text-white/55 sm:tracking-[0.28em]">
             Calibrating Cosmic Coordinates...
           </p>
           <motion.span
@@ -257,6 +299,20 @@ export function Splash() {
           </motion.span>
         </div>
       </motion.div>
+
+      {canSkip && (
+        <button
+          type="button"
+          onClick={() => {
+            skipRequested.current = true;
+            setCanSkip(false);
+            skipNow.current();
+          }}
+          className="glass absolute bottom-6 left-1/2 min-h-11 -translate-x-1/2 rounded-full px-5 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-nebula"
+        >
+          Skip intro
+        </button>
+      )}
 
       {/* Shockwave: a ring that blurs whatever it passes over. */}
       <motion.div

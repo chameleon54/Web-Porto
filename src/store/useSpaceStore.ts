@@ -4,6 +4,9 @@ export type SectionIndex = 0 | 1 | 2 | 3 | 4;
 
 export const SECTION_COUNT = 5;
 
+/** localStorage key for the music volume (written by setVolume, read by AudioPlayer). */
+export const VOLUME_KEY = "music-volume";
+
 export type IntroPhase = "splash" | "done";
 
 export interface LoadingState {
@@ -29,6 +32,8 @@ interface SpaceState {
   activeProjectId: string | null;
   activeAchievementId: string | null;
   audioEnabled: boolean;
+  /** Music volume 0..1. Keeps its last non-zero value while muted, so unmuting restores it. */
+  volume: number;
   /** Splash screen state; the hero, music and camera push-in start at "done". */
   introPhase: IntroPhase;
   /** performance.now() when the splash opened, for the camera push-in; null before. */
@@ -42,6 +47,8 @@ interface SpaceState {
   openProject: (id: string | null) => void;
   openAchievement: (id: string | null) => void;
   toggleAudio: () => void;
+  /** 0 mutes; anything above unmutes at that level. */
+  setVolume: (volume: number) => void;
   setIntroPhase: (phase: IntroPhase) => void;
   setLoading: (loading: LoadingState) => void;
 }
@@ -54,6 +61,7 @@ export const useSpaceStore = create<SpaceState>((set) => ({
   activeProjectId: null,
   activeAchievementId: null,
   audioEnabled: true,
+  volume: 0.35,
   introPhase: "splash",
   introDoneAt: null,
   loading: { progress: 0, total: 0, active: false },
@@ -69,6 +77,17 @@ export const useSpaceStore = create<SpaceState>((set) => ({
   openProject: (activeProjectId) => set({ activeProjectId }),
   openAchievement: (activeAchievementId) => set({ activeAchievementId }),
   toggleAudio: () => set((s) => ({ audioEnabled: !s.audioEnabled })),
+  setVolume: (volume) => {
+    if (volume > 0) {
+      // Saved only on a real user change, never on mount, so the default can't overwrite it.
+      try {
+        localStorage.setItem(VOLUME_KEY, String(volume));
+      } catch {
+        // Storage blocked: the level just won't survive a reload.
+      }
+    }
+    set(volume > 0 ? { volume, audioEnabled: true } : { audioEnabled: false });
+  },
   setLoading: (loading) => set({ loading }),
   setIntroPhase: (introPhase) =>
     set({ introPhase, introDoneAt: introPhase === "done" ? performance.now() : null }),

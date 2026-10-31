@@ -18,7 +18,7 @@ export function Hero() {
         {/* Dark scrim so text stays readable over the bright accretion disk */}
         <div
           aria-hidden="true"
-          className="absolute -inset-x-4 -inset-y-12 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(2,3,10,0.85)_0%,rgba(2,3,10,0.62)_45%,transparent_72%)] sm:-inset-x-16"
+          className="absolute -inset-x-4 -inset-y-12 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(2,3,10,0.9)_0%,rgba(2,3,10,0.75)_50%,transparent_75%)] sm:-inset-x-16"
         />
 
         <motion.p

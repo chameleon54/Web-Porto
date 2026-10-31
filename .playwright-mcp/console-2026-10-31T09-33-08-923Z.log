@@ -1,0 +1,6 @@
+[   90830ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/images/projects/b2b_ecommerce_platform1.png:0
+[   90830ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/images/projects/visual_novel_1.png:0
+[   90830ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/images/projects/pbsi_south_jakarta_2.png:0
+[   94913ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/images/projects/b2b_ecommerce_platform1.png:0
+[   94913ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/images/projects/visual_novel_1.png:0
+[   94913ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/images/projects/pbsi_south_jakarta_2.png:0

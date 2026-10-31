@@ -1,0 +1,119 @@
+- generic [active] [ref=f3e1]:
+  - main [ref=f3e2]:
+    - button "Mute ambient audio" [pressed] [ref=f3e3] [cursor=pointer]
+    - generic [ref=f3e8]:
+      - link "Back to the journey" [ref=f3e9] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f3e12]:
+        - heading "Chairul Khuldan Hermansyah" [level=1] [ref=f3e13]
+        - paragraph [ref=f3e14]: Web Developer & Creative Technologist
+        - img "Portrait of Chairul Khuldan Hermansyah" [ref=f3e19]
+      - generic [ref=f3e20]:
+        - paragraph [ref=f3e21]: I am a web developer focused on modern front-end and full-stack work with Next.js, Supabase, and Tailwind CSS. I enjoy turning complex requirements into clean, reliable interfaces.
+        - paragraph [ref=f3e22]: Beyond the web, I have built branching-narrative games, cross-platform live-score interfaces, and lightweight database tools. I also published academic research on audience analytics using Python, MySQL, and ETL pipelines.
+        - paragraph [ref=f3e23]: I hold a British Council EnglishScore certificate at CEFR level C1 and enjoy exploring immersive tech such as WebVR and WebGL.
+      - heading "Get in touch" [level=2] [ref=f3e24]
+      - list [ref=f3e25]:
+        - listitem [ref=f3e26]:
+          - 'link "GitHub: chameleon54" [ref=f3e27] [cursor=pointer]':
+            - /url: https://github.com/chameleon54
+            - generic [ref=f3e32]:
+              - generic [ref=f3e33]: GitHub
+              - generic [ref=f3e34]: chameleon54
+        - listitem [ref=f3e35]:
+          - 'link "LinkedIn: chairulkhuldan" [ref=f3e36] [cursor=pointer]':
+            - /url: https://id.linkedin.com/in/chairulkhuldan
+            - generic [ref=f3e42]:
+              - generic [ref=f3e43]: LinkedIn
+              - generic [ref=f3e44]: chairulkhuldan
+        - listitem [ref=f3e45]:
+          - 'link "Instagram: @chairulkhuldan" [ref=f3e46] [cursor=pointer]':
+            - /url: https://www.instagram.com/chairulkhuldan/
+            - generic [ref=f3e51]:
+              - generic [ref=f3e52]: Instagram
+              - generic [ref=f3e53]: "@chairulkhuldan"
+        - listitem [ref=f3e54]:
+          - 'link "Email: chairulkhuldan05@gmail.com" [ref=f3e55] [cursor=pointer]':
+            - /url: mailto:chairulkhuldan05@gmail.com
+            - generic [ref=f3e60]:
+              - generic [ref=f3e61]: Email
+              - generic [ref=f3e62]: chairulkhuldan05@gmail.com
+        - listitem [ref=f3e63]:
+          - 'link "WhatsApp: 087777218664" [ref=f3e64] [cursor=pointer]':
+            - /url: https://wa.me/6287777218664
+            - generic [ref=f3e68]:
+              - generic [ref=f3e69]: WhatsApp
+              - generic [ref=f3e70]: "087777218664"
+      - heading "Work Experience" [level=2] [ref=f3e71]
+      - list [ref=f3e72]:
+        - listitem [ref=f3e73]:
+          - paragraph [ref=f3e75]: Feb 2026 - Jul 2026
+          - heading "Web Developer" [level=3] [ref=f3e76]
+          - paragraph [ref=f3e77]: E-Commerce B2B
+          - list [ref=f3e78]:
+            - listitem [ref=f3e79]: Architected B2B web app with Next.js and Supabase (PostgreSQL).
+            - listitem [ref=f3e80]: Integrated Midtrans Payment Gateway for real-time verification.
+            - listitem [ref=f3e81]: Configured automated PostgreSQL database trigger audit trails.
+            - listitem [ref=f3e82]: Enforced Role-Based Access Control (RBAC) across administrative modules.
+        - listitem [ref=f3e83]:
+          - paragraph [ref=f3e85]: Nov 2025 - Dec 2025
+          - heading "Game Programmer" [level=3] [ref=f3e86]
+          - paragraph [ref=f3e87]: Visual Novel Development
+          - list [ref=f3e88]:
+            - listitem [ref=f3e89]: Designed dynamic dialogue choice logic leading to Good/Bad endings.
+            - listitem [ref=f3e90]: Built custom game state management for progress serialization.
+        - listitem [ref=f3e91]:
+          - paragraph [ref=f3e93]: May 2025 - Aug 2025
+          - heading "Front End Developer Intern" [level=3] [ref=f3e94]
+          - paragraph [ref=f3e95]: PBSI South Jakarta
+          - list [ref=f3e96]:
+            - listitem [ref=f3e97]: Created cross-platform live scoring UI with Ionic Framework.
+            - listitem [ref=f3e98]: Collaborated with QA teams across varied mobile and web viewports.
+        - listitem [ref=f3e99]:
+          - paragraph [ref=f3e101]: Sep 2024 - Jan 2025
+          - heading "Teaching Assistant" [level=3] [ref=f3e102]
+          - paragraph [ref=f3e103]: Information Security & Network Administration
+          - list [ref=f3e104]:
+            - listitem [ref=f3e105]: Guided students through networking principles and security lab exercises.
+      - heading "Credits" [level=2] [ref=f3e106]
+      - paragraph [ref=f3e107]:
+        - text: This site uses third-party work. Thank you to the creators. Tap a title or an author to see the original. If you are a creator and would like a credit changed or something removed, please
+        - link "email me" [ref=f3e108] [cursor=pointer]:
+          - /url: mailto:chairulkhuldan05@gmail.com
+        - text: .
+      - list [ref=f3e109]:
+        - listitem [ref=f3e110]:
+          - text: 3D Model
+          - link "Need some space?" [ref=f3e111] [cursor=pointer]:
+            - /url: https://sketchfab.com/3d-models/need-some-space-d6521362b37b48e3a82bce4911409303
+          - paragraph [ref=f3e112]:
+            - text: by
+            - link "Loïc Norgeot" [ref=f3e113] [cursor=pointer]:
+              - /url: https://sketchfab.com/norgeotloic
+            - text: · CC BY 4.0
+          - paragraph [ref=f3e114]: "Changes: Recentered and rescaled, and rendered with custom glow and blending."
+          - link "View on Sketchfab" [ref=f3e115] [cursor=pointer]:
+            - /url: https://sketchfab.com/3d-models/need-some-space-d6521362b37b48e3a82bce4911409303
+        - listitem [ref=f3e120]:
+          - text: 3D Model
+          - link "Earth" [ref=f3e121] [cursor=pointer]:
+            - /url: https://sketchfab.com/3d-models/earth-41fc80d85dfd480281f21b74b2de2faa
+          - paragraph [ref=f3e122]:
+            - text: by
+            - link "Akshat" [ref=f3e123] [cursor=pointer]:
+              - /url: https://sketchfab.com/shooter24994
+            - text: · CC BY 4.0
+          - paragraph [ref=f3e124]: "Changes: Texture extracted and re-lit with a custom day/night shader, with generated city lights added to the night side."
+          - link "View on Sketchfab" [ref=f3e125] [cursor=pointer]:
+            - /url: https://sketchfab.com/3d-models/earth-41fc80d85dfd480281f21b74b2de2faa
+        - listitem [ref=f3e130]:
+          - text: Music
+          - link "Hans Zimmer (Interstellar Main Theme) - Space 4k - no copyright Interstaller inspired Music" [ref=f3e131] [cursor=pointer]:
+            - /url: https://youtu.be/LpGx4uqtvgs
+          - paragraph [ref=f3e132]:
+            - text: by
+            - link "PowerStanik" [ref=f3e133] [cursor=pointer]:
+              - /url: https://www.youtube.com/@PowerStanik
+          - link "View on YouTube" [ref=f3e134] [cursor=pointer]:
+            - /url: https://youtu.be/LpGx4uqtvgs
+  - alert [ref=f3e139]
