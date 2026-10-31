@@ -17,7 +17,7 @@ import { EXPERIENCE_DATA } from "@/data/experience";
 import { PROFILE } from "@/data/profile";
 import { CONTACT } from "@/lib/contact";
 
-export const metadata = { title: "About | Space Portfolio" };
+export const metadata = { title: `About | ${PROFILE.name}` };
 
 interface ContactItem {
   label: string;
@@ -80,24 +80,16 @@ export default function AboutPage() {
           <h1 className="font-display text-3xl font-bold sm:text-5xl">{PROFILE.name}</h1>
           <p className="mt-1 text-sm uppercase tracking-[0.25em] text-ember">{PROFILE.role}</p>
 
-          {/* Framed portrait: gradient border, inner mat, soft glow */}
-          <div className="relative mx-auto mt-6 w-fit">
-            <div
-              aria-hidden="true"
-              className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-nebula/50 via-transparent to-aurora/40 opacity-70 blur-xl"
+          {/* Framed portrait: flat glass mat with a hairline border, no glow */}
+          <div className="glass mx-auto mt-6 w-fit rounded-3xl p-2">
+            <Image
+              src={PROFILE.aboutPhoto}
+              alt={`Portrait of ${PROFILE.name}`}
+              width={160}
+              height={160}
+              priority
+              className="h-40 w-40 rounded-2xl object-cover sm:h-44 sm:w-44"
             />
-            <div className="relative rounded-3xl bg-gradient-to-br from-nebula via-white/40 to-aurora p-[3px] shadow-[0_0_40px_rgba(124,92,255,0.35)]">
-              <div className="rounded-[1.4rem] bg-void p-2">
-                <Image
-                  src={PROFILE.aboutPhoto}
-                  alt={`Portrait of ${PROFILE.name}`}
-                  width={160}
-                  height={160}
-                  priority
-                  className="h-40 w-40 rounded-2xl object-cover sm:h-44 sm:w-44"
-                />
-              </div>
-            </div>
           </div>
         </header>
 

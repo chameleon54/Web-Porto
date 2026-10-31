@@ -9,10 +9,11 @@ import { SectionShell } from "./SectionShell";
 export function AboutPreview() {
   return (
     <SectionShell index={4} label="About me">
-      <div className="pointer-events-auto mx-auto w-full max-w-2xl text-center">
+      {/* Glass panel: the copy sits over the bright Earth and needs a surface, not just a shadow. */}
+      <div className="glass pointer-events-auto mx-auto w-full max-w-2xl rounded-2xl p-5 text-center sm:p-8">
         <p className="text-xs uppercase tracking-[0.3em] text-aurora">Entering Earth&apos;s atmosphere</p>
         <h2 className="mt-2 font-display text-3xl font-bold sm:text-5xl">About Me</h2>
-        <p className="mt-3 text-sm leading-relaxed text-white/80 sm:text-base">{PROFILE.bio[0]}</p>
+        <p className="mt-3 text-sm leading-relaxed text-white/90 sm:text-base">{PROFILE.bio[0]}</p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/about"

@@ -21,7 +21,10 @@ export function Navigation() {
         Portfolio
       </Link>
 
-      <nav aria-label="Section navigation" className="pointer-events-auto hidden items-center gap-1 sm:flex">
+      <nav
+        aria-label="Section navigation"
+        className="glass pointer-events-auto hidden items-center gap-1 rounded-full p-1 sm:flex"
+      >
         {SECTION_LABELS.map((label, i) => (
           <button
             key={label}

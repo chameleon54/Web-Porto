@@ -11,7 +11,7 @@ export function SectionHeading({ title, subtitle }: SectionHeadingProps) {
     <div className="pointer-events-none relative isolate">
       <div
         aria-hidden="true"
-        className="absolute -inset-x-4 -inset-y-5 -z-10 bg-[radial-gradient(ellipse_at_left,rgba(2,3,10,0.85)_0%,rgba(2,3,10,0.55)_50%,transparent_78%)]"
+        className="absolute -inset-x-4 -inset-y-5 -z-10 bg-[radial-gradient(ellipse_farthest-side_at_left,rgba(2,3,10,0.85)_0%,rgba(2,3,10,0.55)_50%,transparent_100%)]"
       />
       <h2 className={`font-display text-2xl font-bold text-white sm:text-4xl ${TEXT_SHADOW}`}>
         {title}
