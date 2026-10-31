@@ -77,8 +77,7 @@ export function setupSpaceScroll(): () => void {
   };
 
   const html = document.documentElement;
-  const prevOverflow = html.style.overflow;
-  html.style.overflow = "hidden";
+  html.classList.add("space-scroll"); // a class, so Splash's inline overflow restore can't undo it
 
   const step = (dir: 1 | -1, e: Event) => {
     if (innerCanScroll(e.target, dir)) return;
@@ -123,7 +122,7 @@ export function setupSpaceScroll(): () => void {
     window.removeEventListener("keydown", onKey);
     unlock?.kill();
     gsap.killTweensOf(window);
-    html.style.overflow = prevOverflow;
+    html.classList.remove("space-scroll");
     goTo = () => {};
     trigger.kill();
     setWarp(0);
