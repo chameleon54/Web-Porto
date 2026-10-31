@@ -80,6 +80,8 @@ export function setupSpaceScroll(): () => void {
   html.classList.add("space-scroll"); // a class, so Splash's inline overflow restore can't undo it
 
   const step = (dir: 1 | -1, e: Event) => {
+    // The dim backdrop sits outside [role=dialog], so gestures there must not move the scene.
+    if (document.querySelector("[role=dialog]")) return;
     if (innerCanScroll(e.target, dir)) return;
     goTo(current + dir);
   };

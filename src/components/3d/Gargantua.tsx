@@ -1,13 +1,14 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { AdditiveBlending, DoubleSide, ShaderMaterial } from "three";
+import { AdditiveBlending, DoubleSide, ShaderMaterial, type PointLight } from "three";
 import { OBJECT_POSITIONS } from "@/lib/waypoints";
 import { useSectionVisibility } from "./useSectionVisibility";
 
 const DISK_INNER = 7.5;
 const DISK_OUTER = 17;
+const GLOW_INTENSITY = 400;
 
 const vertexShader = /* glsl */ `
   varying vec3 vPos;
@@ -58,6 +59,7 @@ const fragmentShader = /* glsl */ `
 
 export function Gargantua() {
   const ref = useSectionVisibility(0, 1.2);
+  const light = useRef<PointLight>(null);
 
   const material = useMemo(
     () =>
@@ -80,33 +82,42 @@ export function Gargantua() {
 
   useFrame((_, delta) => {
     material.uniforms.uTime.value += delta;
+    // Dim instead of hiding: a changing light count recompiles lit materials mid-warp.
+    if (light.current) light.current.intensity = ref.current?.visible ? GLOW_INTENSITY : 0;
   });
 
   return (
-    <group ref={ref} position={OBJECT_POSITIONS.gargantua} rotation={[0, 0, 0.12]}>
-      {/* Event horizon */}
-      <mesh>
-        <sphereGeometry args={[DISK_INNER * 0.82, 48, 48]} />
-        <meshBasicMaterial color="#000000" />
-      </mesh>
+    <>
+      <group ref={ref} position={OBJECT_POSITIONS.gargantua} rotation={[0, 0, 0.12]}>
+        {/* Event horizon */}
+        <mesh>
+          <sphereGeometry args={[DISK_INNER * 0.82, 48, 48]} />
+          <meshBasicMaterial color="#000000" />
+        </mesh>
 
-      {/* Photon ring */}
-      <mesh>
-        <ringGeometry args={[DISK_INNER * 0.82, DISK_INNER * 0.9, 96]} />
-        <meshBasicMaterial color="#ffd9a0" toneMapped={false} side={DoubleSide} />
-      </mesh>
+        {/* Photon ring */}
+        <mesh>
+          <ringGeometry args={[DISK_INNER * 0.82, DISK_INNER * 0.9, 96]} />
+          <meshBasicMaterial color="#ffd9a0" toneMapped={false} side={DoubleSide} />
+        </mesh>
 
-      {/* Equatorial accretion disk, seen near edge-on */}
-      <mesh rotation={[-Math.PI / 2 + 0.22, 0, 0]} material={material}>
-        <ringGeometry args={[DISK_INNER, DISK_OUTER, 160, 1]} />
-      </mesh>
+        {/* Equatorial accretion disk, seen near edge-on */}
+        <mesh rotation={[-Math.PI / 2 + 0.22, 0, 0]} material={material}>
+          <ringGeometry args={[DISK_INNER, DISK_OUTER, 160, 1]} />
+        </mesh>
 
-      {/* Lensed image of the far side of the disk, bent over the shadow */}
-      <mesh rotation={[0, 0, 0]} scale={0.78} material={material}>
-        <ringGeometry args={[DISK_INNER, DISK_OUTER * 0.7, 160, 1]} />
-      </mesh>
-
-      <pointLight color="#ff9a3c" intensity={400} distance={120} />
-    </group>
+        {/* Lensed image of the far side of the disk, bent over the shadow */}
+        <mesh rotation={[0, 0, 0]} scale={0.78} material={material}>
+          <ringGeometry args={[DISK_INNER, DISK_OUTER * 0.7, 160, 1]} />
+        </mesh>
+      </group>
+      <pointLight
+        ref={light}
+        color="#ff9a3c"
+        intensity={0}
+        distance={120}
+        position={OBJECT_POSITIONS.gargantua}
+      />
+    </>
   );
 }

@@ -1,7 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSpaceStore } from "@/store/useSpaceStore";
+
+const MOUNT_DELAY_MS = 180;
 
 interface SectionShellProps {
   index: number;
@@ -14,7 +17,14 @@ interface SectionShellProps {
  * offscreen UI never costs layout or accessibility-tree space.
  */
 export function SectionShell({ index, label, children }: SectionShellProps) {
-  const active = useSpaceStore((s) => s.sectionIndex === index && s.settled);
+  const here = useSpaceStore((s) => s.sectionIndex === index && s.settled);
+  // Mount a beat after the camera lands, so the render doesn't compete with the end of the warp.
+  const [active, setActive] = useState(false);
+  useEffect(() => {
+    if (!here) return setActive(false);
+    const timer = setTimeout(() => setActive(true), MOUNT_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [here]);
 
   return (
     <AnimatePresence mode="wait">

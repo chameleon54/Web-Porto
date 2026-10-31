@@ -24,11 +24,12 @@ const PIN_END = 2.9;
 
 const SUN_POSITION = new Vector3(...OBJECT_POSITIONS.sun);
 
-const wrapPi = (angle: number) => Math.atan2(Math.sin(angle), Math.cos(angle));
-
 /** Angle of an ordinary planet; Earth uses `earthAngle` instead. */
 export const planetAngle = (phase: number, speed: number, elapsed: number) =>
   phase + elapsed * speed * 0.25;
+
+/** Whole turns added to FRONT_ANGLE so the pin target sits within half a turn of the free orbit. */
+let pinTurns = 0;
 
 /**
  * Earth orbits freely while the Solar System is on screen, then eases into
@@ -37,7 +38,10 @@ export const planetAngle = (phase: number, speed: number, elapsed: number) =>
 export function earthAngle(elapsed: number, scrollPosition: number) {
   const free = EARTH_ORBIT_PHASE + elapsed * EARTH_ORBIT_SPEED;
   const pinned = MathUtils.smoothstep(scrollPosition, PIN_START, PIN_END);
-  return free + wrapPi(FRONT_ANGLE - free) * pinned;
+  // Re-pick the nearest turn only at rest (pinned 0 or 1). Mid-warp it stays fixed, so the
+  // angle never jumps by a full turn when the shortest path would flip direction.
+  if (pinned === 0 || pinned === 1) pinTurns = Math.round((free - FRONT_ANGLE) / (2 * Math.PI));
+  return free + (FRONT_ANGLE + 2 * Math.PI * pinTurns - free) * pinned;
 }
 
 /** Writes Earth's world position and the unit vector from Earth toward the sun. */

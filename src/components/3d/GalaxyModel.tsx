@@ -52,8 +52,7 @@ function fitGeometry(geometry: BufferGeometry): Fitted {
 
 /**
  * Galaxy loaded from public/models/galaxy.glb (a 50k-point cloud with vertex
- * colors, authored Z-up). Replaces the procedural <Galaxies /> component, which
- * is kept in the repo so it can be switched back in SpaceCanvas.
+ * colors, authored Z-up).
  */
 export function GalaxyModel() {
   const group = useSectionVisibility(1, 1.3);

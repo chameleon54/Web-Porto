@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { DoubleSide, type Group } from "three";
+import { DoubleSide, type Group, type PointLight } from "three";
 import {
   EARTH_ORBIT_RADIUS,
   EARTH_SYSTEM_SCALE,
@@ -77,18 +77,34 @@ function Planet({ spec }: { spec: PlanetSpec }) {
 }
 
 const SUN_RADIUS = 4.5;
+const SUN_LIGHT_INTENSITY = 900;
 
 export function SolarSystem() {
   // Grows in as the warp arrives (1.5 -> 2) and stays through the Earth sections.
   const group = useSectionSpan(1.5, SECTION_COUNT - 1, 0.5);
+  const light = useRef<PointLight>(null);
+
+  // Dim instead of hiding: a changing light count recompiles lit materials mid-warp.
+  useFrame(() => {
+    if (light.current) light.current.intensity = group.current?.visible ? SUN_LIGHT_INTENSITY : 0;
+  });
 
   return (
-    <group ref={group} position={OBJECT_POSITIONS.sun} rotation={SOLAR_TILT}>
-      <Sun radius={SUN_RADIUS} />
-      <pointLight color="#ffd9a0" intensity={900} distance={160} decay={1.6} />
-      {PLANETS.map((spec) => (
-        <Planet key={spec.name} spec={spec} />
-      ))}
-    </group>
+    <>
+      <group ref={group} position={OBJECT_POSITIONS.sun} rotation={SOLAR_TILT}>
+        <Sun radius={SUN_RADIUS} />
+        {PLANETS.map((spec) => (
+          <Planet key={spec.name} spec={spec} />
+        ))}
+      </group>
+      <pointLight
+        ref={light}
+        color="#ffd9a0"
+        intensity={0}
+        distance={160}
+        decay={1.6}
+        position={OBJECT_POSITIONS.sun}
+      />
+    </>
   );
 }

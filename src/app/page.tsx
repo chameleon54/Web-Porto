@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
+import { CanvasBoundary } from "@/components/3d/CanvasBoundary";
 import { AchievementModal } from "@/components/modals/AchievementModal";
 import { ProjectModal } from "@/components/modals/ProjectModal";
 import { AboutPreview } from "@/components/ui/AboutPreview";
@@ -24,7 +25,9 @@ export default function HomePage() {
   return (
     <main>
       <div id="viewport-container" className="relative h-[100svh] w-full overflow-hidden bg-void">
-        <SpaceCanvas />
+        <CanvasBoundary>
+          <SpaceCanvas />
+        </CanvasBoundary>
         <Navigation />
         <Hero />
         <ProjectCarousel />

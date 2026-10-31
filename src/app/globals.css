@@ -47,6 +47,15 @@ body {
   -webkit-backdrop-filter: blur(10px);
 }
 
+/* Phones: re-blurring a live WebGL canvas every frame is costly; use a denser tint instead. */
+@media (max-width: 767px) {
+  .glass {
+    background: rgba(6, 8, 24, 0.82);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
 /* Scrollbar: transparent track, slim glass thumb that turns mint on hover. */
 * {
   scrollbar-width: thin;
